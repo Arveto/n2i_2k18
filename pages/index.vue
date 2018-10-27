@@ -6,7 +6,7 @@
                 n2i-template
             </h1>
             <h2 class="subtitle">
-                A website template for the Nuit de l&#39;Info hackathon
+                A website template for the Nuit de l'Info hackathon
             </h2>
             <div class="links">
                 <a
@@ -26,8 +26,17 @@
 <script>
     import Logo from '~/components/Logo.vue'
     import io from 'socket.io-client'
-    console.log("Hello");
-    io.connect('localhost:3000');
+
+    let socket = io.connect('localhost:3000');
+
+    socket.emit('ping');
+    console.log('ping');
+
+    socket.on('pong', () =>{
+        console.log("POOOONGGG!");
+    })
+
+
 
     export default {
         components: {

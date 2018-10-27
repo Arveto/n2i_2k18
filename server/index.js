@@ -36,7 +36,7 @@ async function start() {
 
     const io = require('socket.io').listen(server);
 
-    io.on('connection', socket => {
+    io.sockets.on('connection', socket => {
         console.log('id: ' + socket.id + ' is connected');
 
         socket.on('ping', () => {
