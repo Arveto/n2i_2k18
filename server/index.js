@@ -1,51 +1,81 @@
 
-const express = require('express')
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
-const app = express()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+    //*** Modules ***
+
+//Import
+const express = require('express');
+const consola = require('consola');
+const { Nuxt, Builder } = require('nuxt');
+const app = express();
+const host = process.env.HOST || '127.0.0.1';
+const port = process.env.PORT || 3000;
+
+var io = require('socket.io');
+const mysql = require('mysql');
+
+//Custom modules
+const databaseWrapper = require('./db_wrapper.js');
+const accountsEvents = require('./accounts_events.js');
 
 
+/******************************************************************************/
+    //*** Init modules ***
+
+//*** Server port ***
 app.set('port', port)
 
 // Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
+let config = require('../nuxt.config.js');
+config.dev = !(process.env.NODE_ENV === 'production');
+
+
+//*** Database ***
+var dbConfig = {
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'root',
+    database: 'n2i_template'
+};
+
+var database = new databaseWrapper.Database(mysql, dbConfig);
+
+
+/******************************************************************************/
+    //*** Start server ***
 
 async function start() {
+        //*** Set up server ***
+
     // Init Nuxt.js
-    const nuxt = new Nuxt(config)
+    const nuxt = new Nuxt(config);
 
     // Build only in dev mode
     if (config.dev) {
-        const builder = new Builder(nuxt)
-        await builder.build()
+        const builder = new Builder(nuxt);
+        await builder.build();
     }
 
     // Give nuxt middleware to express
-    app.use(nuxt.render)
+    app.use(nuxt.render);
 
     // Listen the server
-    let server = app.listen(port, host)
+    let server = app.listen(port, host);
     consola.ready({
         message: `Server listening on http://${host}:${port}`,
         badge: true
-    })
+    });
 
 
-    const io = require('socket.io').listen(server);
+        //*** Socket.io events ***
+
+    io = io.listen(server);
 
     io.sockets.on('connection', socket => {
         console.log('id: ' + socket.id + ' is connected');
 
-        socket.on('ping', () => {
-            console.log("Ping from "+socket.id);
-            socket.emit("pong");
-        });
+        accountsEvents.listen(socket, database);
 
     });
 
 }
 
-start()
+start();

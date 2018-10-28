@@ -29,14 +29,6 @@
 
     let socket = io.connect('localhost:3000');
 
-    socket.emit('ping');
-    console.log('ping');
-
-    socket.on('pong', () =>{
-        console.log("POOOONGGG!");
-    })
-
-
 
     export default {
         components: {
