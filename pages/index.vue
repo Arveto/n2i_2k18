@@ -46,7 +46,7 @@
 </script>
 
 
-<style>
+<style scoped>
 
     .container {
         min-height: 100vh;
