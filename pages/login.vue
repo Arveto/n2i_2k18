@@ -13,17 +13,20 @@
                         <form>
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="email" placeholder="Your Email" autofocus="">
+                                    <input v-model="email" class="input is-large" type="email" placeholder="Your Email" autofocus="">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="password" placeholder="Your Password">
+                                    <input v-model="password" class="input is-large" type="password" placeholder="Your Password">
                                 </div>
                             </div>
-                            <button class="button is-block is-link is-large is-fullwidth">Login</button>
+
                         </form>
+
+                        <button v-on:click="submit" class="button is-block is-link is-large is-fullwidth" id="submitButton">Login</button>
+
                     </div>
                     <p class="has-text-grey">
                         <a href="../">Sign Up</a> &nbsp;·&nbsp;
@@ -43,7 +46,67 @@ export default {
 
 <style lang="css" scoped>
 .avatar{
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#submitButton{
+    margin-top: 25px;
 }
 </style>
+
+
+<script>
+var data   = {
+    fiName: '',
+    faName: '',
+    pseudo: '',
+    email: '',
+    password: ''   //Crypted
+};
+
+
+export default {
+
+    // head () {
+    //   return {
+    //     script: [
+    //       { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha_dev.js' }  //WARNING Not working?
+    //     ]
+    //   }
+    // },
+
+    data () {
+        return data;
+    },
+
+    methods: {
+        submit: function(){
+            if(this.email != '' && this.password != ''){
+
+                let user = {
+                    email : this.email,
+                    password : this.password  //TODO Encryption
+                }
+                socket.emit('signIn', user);
+            }
+            else{
+                //Error management
+            }
+
+        }
+    }
+}
+
+
+
+
+import io from 'socket.io-client'
+let socket = io.connect('localhost:3000');
+
+socket.on('signInSuccess', (user) => {
+    //Do your stuff
+    console.log("Log in succesfull");
+});
+
+</script>

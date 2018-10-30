@@ -16,22 +16,25 @@ function listen(socket, database){
         query = 'SELECT id FROM users WHERE email = ?;';
         database.query(query, [user.email])
         .then(rows => {
-            mailAvalaible = !!rows.length;
-            console.log("mailAvalaible = "+mailAvalaible);
-        });
+            console.log("length = "+rows.length);
 
-            //Add user to DB
-        if(mailAvalaible){
-            query = 'INSERT INTO users (faName, fiName, pseudo, email, password) VALUES(?, ?, ?, ?, ?);';
-            database.query(query, [user.faName, user.fiName, user.pseudo, user.password])
-            .then(rows => {
-                console.log("User added!")
-                socket.emit('signUpSuccess', { inscriptionDate: new Date.now() });
-            });
-        }
-        else {
-            socket.emit('signUpFailure');
-        }
+
+            mailAvalaible = !rows.length;
+            console.log("mailAvalaible = "+mailAvalaible);
+
+                //Add user to DB
+            if(mailAvalaible){
+                query = 'INSERT INTO users (faName, fiName, pseudo, email, password) VALUES(?, ?, ?, ?, ?);';
+                database.query(query, [user.faName, user.fiName, user.pseudo, user.email, user.password])
+                .then(rows => {
+                    console.log("User added!")
+                    socket.emit('signUpSuccess');
+                });
+            }
+            else {
+                socket.emit('signUpFailure');
+            }
+        });
 
     });
 
