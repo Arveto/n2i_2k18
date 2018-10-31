@@ -68,13 +68,13 @@ var data   = {
 
 export default {
 
-    // head () {
-    //   return {
-    //     script: [
-    //       { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha_dev.js' }  //WARNING Not working?
-    //     ]
-    //   }
-    // },
+    head () {
+      return {
+        script: [
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha_dev.js' }
+        ]
+      }
+    },
 
     data () {
         return data;
@@ -84,9 +84,13 @@ export default {
         submit: function(){
             if(this.email != '' && this.password != ''){
 
+                let shaObj = new jsSHA("SHA-512", "TEXT");
+                shaObj.update(this.password);
+                var hash = shaObj.getHash("HEX");
+
                 let user = {
                     email : this.email,
-                    password : this.password  //TODO Encryption
+                    password : hash
                 }
                 socket.emit('signIn', user);
             }

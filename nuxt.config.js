@@ -13,9 +13,6 @@ module.exports = {
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { hid: 'description', name: 'description', content: pkg.description }
         ],
-        // script: [
-        //     { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha_dev.js' }    //WARNING Not working?
-        // ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'stylesheet', href: 'https://unpkg.com/bulmaswatch/darkly/bulmaswatch.min.css' }

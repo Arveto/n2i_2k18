@@ -103,13 +103,13 @@ var data   = {
 
 export default {
 
-    // head () {
-    //   return {
-    //     script: [
-    //       { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha_dev.js' }  //WARNING Not working?
-    //     ]
-    //   }
-    // },
+    head () {
+      return {
+        script: [
+          { src: 'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.3.1/sha.js' }
+        ]
+      }
+    },
 
     data () {
         return data;
@@ -118,16 +118,21 @@ export default {
     methods: {
         submit: function(){
 
+
             if(this.fiName != '' && this.faName != ''
             && this.pseudo != '' && this.email != ''
             && this.password1 == this.password2 && this.password1 != ''){
-                console.log('Emitting');
+
+                let shaObj = new jsSHA("SHA-512", "TEXT");
+                shaObj.update(this.password1);
+                var hash = shaObj.getHash("HEX");
+
                 let user = {
                     faName : this.faName,
                     fiName : this.fiName,
                     pseudo : this.pseudo,
                     email : this.email,
-                    password : this.password1,  //TODO Encryption
+                    password : hash,
                 }
                 socket.emit('signUp', user);
             }
