@@ -102,19 +102,19 @@ function listen(socket, database){
             //First, check that email is not already used
         let mailAvalaible;
         query = 'SELECT id FROM users WHERE email = ?;';
-        database.query(query, [user.email])
+        database.query(query, [user.newEmail])
         .then(rows => {
-            mailAvalaible = !!rows.length;
-            console.log("mailAvalaible = "+mailAvalaible);
+
+            if(rows.length == 0){
+                let query = 'UPDATE users SET email = ? WHERE email = ?;'
+                database.query(query, [user.newEmail, user.email])
+                .then(rows => {
+                    socket.emit('emailEditSuccess');
+                });
+            }
+
         });
 
-        if(mailAvalaible){
-            let query = 'UPDATE users SET email = ? WHERE email = ?;'
-            database.query(query, [user.newEmail, user.email])
-            .then(rows => {
-                socket.emit('emailEditSuccess');
-            });
-        }
     });
 
 
