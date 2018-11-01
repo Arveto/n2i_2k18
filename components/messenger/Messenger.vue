@@ -1,7 +1,9 @@
 
 <template>
-  <div id="root">
-    <div v-if="isOpen" class="box" id="messenger">
+  <div id="MESSENGER">
+
+  <div v-if="isOpen" id="root">
+    <div class="box" id="messenger">
       <div id="messages">
         <div id="header">
           <MessengerHeader/>
@@ -12,15 +14,16 @@
         </div>
       </div>
     </div>
-    <div id="toggleMessenger" class="button" @click="toggleMessenger">
-      <div v-if="isOpen">
-        <i class="fa fa-times"></i>
-      </div>
-      <div v-else>
-        <i class="fa fa-comment"></i>
-      </div>
+  </div>
+  <div id="toggleMessenger" class="button" @click="toggleMessenger">
+    <div v-if="isOpen">
+      <i class="fa fa-times"></i>
+    </div>
+    <div v-else>
+      <i class="fa fa-comment"></i>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -99,6 +102,7 @@
     background-color: black;
   }
   #messages{
+
     position: relative;
     top: -1%;
     bottom: 0;
