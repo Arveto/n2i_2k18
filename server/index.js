@@ -69,11 +69,16 @@ async function start() {
 
     io = io.listen(server);
 
-    io.sockets.on('connection', socket => {
+    io.sockets.on('connection', (socket) => {
         console.log('id: ' + socket.id + ' is connected');
 
         accountsEvents.listen(socket, database);
 
+        socket.on("message", (data)=>{
+          console.log("message : " + data.content);
+          socket.broadcast.emit("message", data);
+          socket.emit("messageRecived", data);
+        })
     });
 
 }

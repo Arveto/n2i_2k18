@@ -18,21 +18,20 @@
                 target="_blank"
                 class="button--grey">GitHub</a>
             </div>
-        </div>
+          </div>
+      <Messenger/>
     </section>
 </template>
 
 
 <script>
     import Logo from '~/components/Logo.vue'
-    import io from 'socket.io-client'
-
-    let socket = io.connect('localhost:3000');
-
+    import Messenger from '@/components/messenger/Messenger.vue'
 
     export default {
         components: {
-            Logo
+            Logo,
+            Messenger
         }
     }
 </script>
