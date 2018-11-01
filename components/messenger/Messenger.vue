@@ -1,87 +1,98 @@
-
 <template>
-  <div id="MESSENGER">
 
-  <div v-if="isOpen" id="root">
-    <div class="box" id="messenger">
-      <div id="messages">
-        <div id="header">
-          <MessengerHeader/>
+    <div id="MESSENGER">
+
+        <div v-if="isOpen" id="root">
+            <div class="box" id="messenger">
+                <div id="messages">
+                    <div id="header">
+                        <MessengerHeader/>
+                    </div>
+                    <MessagesView :messages="messages"/>
+                    <div id="userInput">
+                        <Input @sendMessage="sendMessage"/>
+                    </div>
+                </div>
+            </div>
         </div>
-        <MessagesView :messages="messages"/>
-        <div id="userInput">
-          <Input @sendMessage="sendMessage"/>
+        <div id="toggleMessenger" class="button" @click="toggleMessenger">
+            <div v-if="isOpen">
+                <i class="fa fa-times"></i>
+            </div>
+            <div v-else>
+                <i class="fa fa-comment"></i>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div id="toggleMessenger" class="button" @click="toggleMessenger">
-    <div v-if="isOpen">
-      <i class="fa fa-times"></i>
-    </div>
-    <div v-else>
-      <i class="fa fa-comment"></i>
-    </div>
-  </div>
-</div>
+
 </template>
 
+
+
 <script>
-  import MessagesView from './MessagesView.vue'
-  import MessengerHeader from './MessengerHeader.vue'
-  import Input from "./Input.vue"
 
-  import io from 'socket.io-client'
-  let socket = io.connect('localhost:3000');
+import MessagesView from './MessagesView.vue'
+import MessengerHeader from './MessengerHeader.vue'
+import Input from "./Input.vue"
 
-  export default {
+// import io from 'socket.io-client'
+// let socket = io.connect('localhost:3000'); //TODO Pass io instance as props
+
+export default {
     name: 'Messenger',
     components: {
-      MessagesView,
-      MessengerHeader,
-      Input
+        MessagesView,
+        MessengerHeader,
+        Input
     },
-    mounted: function (){
-      socket.on("message", (data)=>{
-        data.id = this.$data.messages.length++;
-        data.isMine = false;
-        this.$data.messages.push(data)
-      })
-      socket.on("messageRecived", (data)=>{
-        data.id = this.$data.messages.length+1;
-        data.isMine = true;
-        this.$data.messages.push(data)
-      })
-    },
-    data: function() {
-      return {
-        isOpen: true,
 
-        messages: [
-          {id:1, sender:'p1', content:'yo la mif', time:'12', isMine: false},
-          {id:2, sender:'p2', content:'wesh', time:'145', isMine: false},
-          {id:3, sender:'mwa', content:'plop', time:'645', isMine: true},
-          {id:4, sender:'p1', content:'caca', time:'46', isMine: false}
-        ]
-      }
+    data: function() {
+        return {
+            isOpen: true,
+
+            messages: [
+                {id:1, sender:'p1', content:'yo la mif', time:'12', isMine: false},
+                {id:2, sender:'p2', content:'wesh', time:'145', isMine: false},
+                {id:3, sender:'mwa', content:'plop', time:'645', isMine: true},
+                {id:4, sender:'p1', content:'caca', time:'46', isMine: false}
+            ]
+        }
     },
+
+    mounted: function (){
+        socket.on("message", (data)=>{
+            data.id = this.$data.messages.length++;
+            data.isMine = false;
+            this.$data.messages.push(data)
+        })
+        socket.on("messageRecived", (data)=>{
+            data.id = this.$data.messages.length+1;
+            data.isMine = true;
+            this.$data.messages.push(data)
+        })
+    },
+
     methods: {
-      toggleMessenger: function() {
-        this.$data.isOpen = !this.$data.isOpen;
-      },
-      sendMessage: function(content) {
-        socket.emit("message", {"id": '', "sender": "test", "content": content, "time": 42, "isMine": ''});
-      }
+        toggleMessenger: function() {
+            this.$data.isOpen = !this.$data.isOpen;
+        },
+        sendMessage: function(content) {
+            socket.emit("message", {"id": '', "sender": "test", "content": content, "time": 42, "isMine": ''});
+        }
     }
-  }
+}
+
 </script>
 
-<style lang="css" scoped>
-  div{
-    margin: 5px;
-  }
 
-  #root, #messages{
+
+<style lang="css" scoped>
+
+div{
+    margin: 5px;
+}
+
+#root, #messages{
     position: fixed;
     width: 400px;
     height: 60vh;
@@ -90,18 +101,18 @@
 
     padding-top: 0;
     /* background-color: black; */
-  }
-  .grey{
+}
+.grey{
     background-color: grey;
-  }
+}
 
-  #messenger{
+#messenger{
     display: flex;
     height: 100%;
 
     background-color: black;
-  }
-  #messages{
+}
+#messages{
 
     position: relative;
     top: -1%;
@@ -113,29 +124,33 @@
 
     overflow-y: hidden;
     overflow-x: hidden;
-  }
-  #contacts{
+}
+#contacts{
     border-left: solid 1px white;
     flex-grow: 1;
-  }
-  #userInput{
+}
+#userInput{
     position: fixed;
     bottom: 22vh;
     width: 350px;
 
     border-radius: 5px;
     border: solid 1px #3b8070;
-  }
+}
 
-  #toggleMessenger{
+#toggleMessenger{
     position: fixed;
     bottom: 5vw;
     right: 10vw;
-  }
+}
+
 </style>
 
+
 <style lang="css">
-  div{
+
+div{
     margin: 5px;
-  }
+}
+
 </style>

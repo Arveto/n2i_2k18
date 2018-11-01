@@ -1,4 +1,5 @@
 <template>
+
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://github.com/Arveto">
@@ -8,7 +9,7 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" v-on:click="switchView('Logo')">
                     Home
                 </a>
 
@@ -42,10 +43,10 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary">
+                        <a class="button is-primary"  v-on:click="switchView('Signup')">
                             <strong>Sign up</strong>
                         </a>
-                        <a class="button is-light">
+                        <a class="button is-light" v-on:click="switchView('Login')">
                             Log in
                         </a>
                     </div>
@@ -54,11 +55,29 @@
 
         </div>
     </nav>
+
 </template>
 
 
+
 <style>
+
 .navbar {
     border-radius: 0px;
 }
+
 </style>
+
+
+
+<script>
+
+export default {
+    methods: {
+        switchView : function (component) {
+            this.$emit('switchView', component);
+        }
+    }
+}
+
+</script>

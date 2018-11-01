@@ -16,19 +16,25 @@ function listen(socket, database){
         query = 'SELECT id FROM users WHERE email = ?;';
         database.query(query, [user.email])
         .then(rows => {
-            console.log("length = "+rows.length);
-
 
             mailAvalaible = !rows.length;
-            console.log("mailAvalaible = "+mailAvalaible);
 
                 //Add user to DB
             if(mailAvalaible){
                 query = 'INSERT INTO users (faName, fiName, pseudo, email, password) VALUES(?, ?, ?, ?, ?);';
                 database.query(query, [user.faName, user.fiName, user.pseudo, user.email, user.password])
                 .then(rows => {
-                    console.log("User added!")
-                    socket.emit('signUpSuccess');
+                    console.log("User added!");
+
+                    let userData = {
+                        faName: user.faName,
+                        fiName: user.fiName,
+                        pseudo: user.pseudo,
+                        email: user.email,
+                        admin: false
+                    }
+
+                    socket.emit('signUpSuccess', userData);
                 });
             }
             else {
@@ -43,7 +49,7 @@ function listen(socket, database){
     socket.on('signIn', (user) => {
         console.log('signIn request !');
 
-        let query = 'SELECT fiName, faName, pseudo, inscriptionDate, admin \
+        let query = 'SELECT fiName, faName, pseudo, email, admin \
         FROM users WHERE email = ? AND password = ?;';
         database.query(query, [user.email, user.password])
         .then(rows => {
