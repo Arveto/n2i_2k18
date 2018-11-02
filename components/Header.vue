@@ -1,6 +1,6 @@
 <template>
 
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar header" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://github.com/Arveto">
                 <img src="~/static/header_logo.png" width="112" height="28">
@@ -64,6 +64,8 @@
 
 .navbar {
     border-radius: 0px;
+    background-color: rgb(31, 36, 36);
+    /*background-color: rgb(45, 45, 45);*/
 }
 
 </style>
@@ -77,7 +79,8 @@ export default {
         switchView : function (component) {
             this.$emit('switchView', component);
         }
-    }
+    },
+
 }
 
 </script>

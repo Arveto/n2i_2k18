@@ -2,7 +2,7 @@
 
 <div class="cd-background-wrapper">
    <figure class="cd-floating-background">
-      <img src="~/static/home-bg.png" alt="image-1">
+      <img src="~/static/home-bg.png" id="heroBg" alt="image-1">
       <img src="~/static/home-logo.png" alt="image-2">
       <img src="~/static/home-alberto.png" alt="image-3">
    </figure>
@@ -84,7 +84,6 @@ export default {
     },
 
     mounted () {
-        console.log("Salut")
         jQuery(document).ready(function($){
 
             var	halfWindowH = $(window).height()*0.5,
@@ -103,7 +102,6 @@ export default {
                 if(this.complete) $(this).trigger('load');
             });
 
-            console.log("ok")
 
             //detect mouse movement
             $('.cd-background-wrapper').each(function(){

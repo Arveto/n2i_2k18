@@ -16,7 +16,7 @@
 import io from 'socket.io-client'
 let socket = io.connect('localhost:3000');
 
-import Home from '@/components/Home'
+import Home from '@/components/home/Home'
 import Header from '@/components/Header'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
