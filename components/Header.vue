@@ -9,7 +9,7 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" v-on:click="switchView('Logo')">
+                <a class="navbar-item" v-on:click="switchView('Home')">
                     Home
                 </a>
 

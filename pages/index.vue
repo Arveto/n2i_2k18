@@ -2,9 +2,9 @@
 
         <div>
             <Header @switchView="switchView"/>
+            <Home v-if="view == 'Home'"/>
             <Signup v-if="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
             <Login v-if="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
-            <Logo v-if="view == 'Logo'"/>
         </div>
 
 </template>
@@ -16,15 +16,14 @@
 import io from 'socket.io-client'
 let socket = io.connect('localhost:3000');
 
-import Logo from '~/components/Logo.vue'
+import Home from '@/components/Home'
 import Header from '@/components/Header'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
-import Messenger from '@/components/messenger/Messenger'
 
 
 var data = {
-    view : 'Logo',
+    view : 'Home',
     socket : socket,
     loggedIn : false,
     userData : {
@@ -38,7 +37,7 @@ var data = {
 
 export default {
     components: {
-        Logo, Header, Login, Signup
+        Home, Header, Login, Signup
     },
 
     data () {
@@ -55,7 +54,7 @@ export default {
         signIn : function(userData){
             this.loggedIn = true;
             this.userData = userData;
-            this.view = 'Logo';
+            this.view = 'Home';
 
             console.log("Logged In =)");
             console.log(this.userData);
@@ -64,7 +63,7 @@ export default {
         signUp : function(userData){
             this.loggedIn = true;
             this.userData = userData;
-            this.view = 'Logo';
+            this.view = 'Home';
 
             console.log("Welcome");
             console.log(this.userData);
