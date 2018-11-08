@@ -1,7 +1,7 @@
 <template>
 
         <div>
-            <Header @switchView="switchView"/>
+            <Header v-bind:loggedIn="loggedIn" v-bind:userData="userData" @switchView="switchView" @logOff="logOff"/>
             <Home v-if="view == 'Home'"/>
             <Signup v-if="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
             <Login v-if="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
@@ -56,7 +56,6 @@ export default {
             this.userData = userData;
             this.view = 'Home';
 
-            console.log("Logged In =)");
             console.log(this.userData);
         },
 
@@ -65,8 +64,20 @@ export default {
             this.userData = userData;
             this.view = 'Home';
 
-            console.log("Welcome");
             console.log(this.userData);
+        },
+
+        logOff : function() {
+            this.loggedIn = false;
+
+            this.userData = {
+                fiName: '',
+                faName: '',
+                pseudo: '',
+                email: ''
+            };
+
+            this.view = 'Home';
         }
     }
 }

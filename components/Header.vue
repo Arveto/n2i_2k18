@@ -41,16 +41,39 @@
             </div>
 
             <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary"  v-on:click="switchView('Signup')">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light" v-on:click="switchView('Login')">
-                            Log in
-                        </a>
+                <!-- Connection buttons -->
+                <div id="connectionSection" v-if="!loggedIn">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary"  v-on:click="switchView('Signup')">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light" v-on:click="switchView('Login')">
+                                Log in
+                            </a>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Connected section -->
+                <div id="connectedSection" v-if="loggedIn">
+
+                    <div class="navbar-item">
+
+                        <div id="welcomeText">Bonjour, {{userData.fiName}}!</div>
+
+                        <div class="buttons">
+                            <a class="button is-primary">
+                                <strong>Mon compte</strong>
+                            </a>
+                            <a class="button is-light" v-on:click="logOff">
+                                Se déconnecter
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -68,6 +91,10 @@
     /*background-color: rgb(45, 45, 45);*/
 }
 
+#welcomeText {
+    margin-right: 10px;
+}
+
 </style>
 
 
@@ -78,8 +105,14 @@ export default {
     methods: {
         switchView : function (component) {
             this.$emit('switchView', component);
+        },
+        logOff : function () {
+            //this.loggedIn = false;
+
+            this.$emit('logOff');
         }
     },
+    props :['loggedIn', 'userData']
 
 }
 
