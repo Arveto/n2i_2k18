@@ -58,7 +58,13 @@
                 <!-- Connected section -->
                 <div id="connectedSection" v-if="loggedIn">
 
+
+
                     <div class="navbar-item">
+
+                        <figure class="avatar image">
+                            <img class="is-rounded" :src="'https://api.adorable.io/avatars/285/'+userData.email+'.png'">
+                        </figure>
 
                         <div id="welcomeText">Bonjour, {{userData.fiName}}!</div>
 
@@ -92,6 +98,7 @@
 }
 
 #welcomeText {
+    margin-left: 10px;
     margin-right: 10px;
 }
 
