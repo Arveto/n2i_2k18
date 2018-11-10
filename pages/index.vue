@@ -49,16 +49,16 @@ export default {
 
     mounted() {
         socket.on('faNameEditSuccess', (data) => {
-            this.faName = this.userData.faName;
+            this.userData.faName = data.faName;
         });
         socket.on('fiNameEditSuccess', (data) => {
-            this.fiName = this.userData.fiName;
+            this.userData.fiName = data.fiName;
         });
         socket.on('pseudoEditSuccess', (data) => {
-            this.pseudo = this.userData.pseudo;
+            this.userData.pseudo = data.pseudo;
         });
         socket.on('emailEditSuccess', (data) => {
-            this.email = this.userData.email;
+            this.userData.email = data.email;
         });
         socket.on('passwordEditSuccess', () => {
             console.log("Password updated !");

@@ -160,8 +160,7 @@ export default {
                     break;
 
                 case 'pseudo':
-                    if(this.pseudo != '')
-                        this.socket.emit('pseudoEdit', {pseudo: this.pseudo, email: this.userData.email});
+                    this.socket.emit('pseudoEdit', {pseudo: this.pseudo, email: this.userData.email});
                     break;
 
                 case 'password':
