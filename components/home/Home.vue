@@ -5,7 +5,7 @@
     <Hero/>
 
         <!-- Github button -->
-    <a class="button is-medium fade-in" id="githubButton" href="https://github.com/Arveto"  target="_blank" @switchView="place">
+    <a class="button is-medium fade-in" id="githubButton" href="https://github.com/Arveto"  target="_blank">
         <span>Visit our</span>
             <span class="icon">
                 <i class="fab fa-github"></i>
@@ -75,15 +75,20 @@ export default {
         Hero
     },
 
+    props: ['view'],
+
     mounted () {
+
         let githubButton = document.getElementById('githubButton');
         let heroImagge = document.getElementById('heroBg');
 
 
         function placeGithubButton() {
-            let wHeight = window.innerHeight;
-            let rect = heroBg.getBoundingClientRect();
-            githubButton.style.transform = 'translate(-50%, -'+(rect.bottom-rect.top)*0.3+'px)'
+            try{
+                let wHeight = window.innerHeight;
+                let rect = heroBg.getBoundingClientRect();
+                githubButton.style.transform = 'translate(-50%, -'+(rect.bottom-rect.top)*0.3+'px)';
+            } catch{}   //Oops
         } ;
 
         placeGithubButton();
@@ -91,15 +96,6 @@ export default {
         window.onresize = placeGithubButton;
     },
 
-    methods : {
-        place: () => {
-            let githubButton = document.getElementById('githubButton');
-            let heroImagge = document.getElementById('heroBg');
-            let wHeight = window.innerHeight;
-            let rect = heroBg.getBoundingClientRect();
-            githubButton.style.transform = 'translate(-50%, -'+(rect.bottom-rect.top)*0.3+'px)'
-        }
-    }
 }
 
 </script>

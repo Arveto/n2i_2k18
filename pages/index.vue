@@ -2,9 +2,10 @@
 
         <div>
             <Header v-bind:loggedIn="loggedIn" v-bind:userData="userData" @switchView="switchView" @logOff="logOff"/>
-            <Home v-if="view == 'Home'"/>
-            <Signup v-if="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
-            <Login v-if="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
+            <Home v-bind:view="view" v-show="view == 'Home'"/>
+            <Signup v-show="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
+            <Login v-show="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
+            <Account v-show="view == 'Account'"  v-bind:socket="socket" v-bind:userData="userData"/>
         </div>
 
 </template>
@@ -20,6 +21,7 @@ import Home from '@/components/home/Home'
 import Header from '@/components/Header'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+import Account from '@/components/Account'
 
 
 var data = {
@@ -37,12 +39,30 @@ var data = {
 
 export default {
     components: {
-        Home, Header, Login, Signup
+        Home, Header, Login, Signup, Account
     },
 
     data () {
         return data;
 
+    },
+
+    mounted() {
+        socket.on('faNameEditSuccess', (data) => {
+            this.faName = this.userData.faName;
+        });
+        socket.on('fiNameEditSuccess', (data) => {
+            this.fiName = this.userData.fiName;
+        });
+        socket.on('pseudoEditSuccess', (data) => {
+            this.pseudo = this.userData.pseudo;
+        });
+        socket.on('emailEditSuccess', (data) => {
+            this.email = this.userData.email;
+        });
+        socket.on('passwordEditSuccess', () => {
+            console.log("Password updated !");
+        });
     },
 
     methods : {

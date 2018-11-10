@@ -73,7 +73,8 @@ function listen(socket, database){
         let query = 'UPDATE users SET faName = ? WHERE email = ?;'
         database.query(query, [user.faName, user.email])
         .then(rows => {
-            socket.emit('faNameEditSuccess');
+            socket.emit('faNameEditSuccess', {faName: user.faName});
+            console.log("Emitted");
         });
     });
 
@@ -84,7 +85,8 @@ function listen(socket, database){
         let query = 'UPDATE users SET fiName = ? WHERE email = ?;'
         database.query(query, [user.fiName, user.email])
         .then(rows => {
-            socket.emit('fiNameEditSuccess');
+            socket.emit('fiNameEditSuccess', {fiName: user.fiName});
+            console.log("Emitted");
         });
     });
 
@@ -95,7 +97,8 @@ function listen(socket, database){
         let query = 'UPDATE users SET pseudo = ? WHERE email = ?;'
         database.query(query, [user.pseudo, user.email])
         .then(rows => {
-            socket.emit('pseudoEditSuccess');
+            socket.emit('pseudoEditSuccess', {pseudo: user.pseudo});
+            console.log("Emitted");
         });
     });
 
@@ -115,7 +118,8 @@ function listen(socket, database){
                 let query = 'UPDATE users SET email = ? WHERE email = ?;'
                 database.query(query, [user.newEmail, user.email])
                 .then(rows => {
-                    socket.emit('emailEditSuccess');
+                    socket.emit('emailEditSuccess', {email: newEmail});
+                    console.log("Emitted");
                 });
             }
 

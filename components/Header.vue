@@ -69,7 +69,7 @@
                         <div id="welcomeText">Bonjour, {{userData.fiName}}!</div>
 
                         <div class="buttons">
-                            <a class="button is-primary">
+                            <a class="button is-primary" v-on:click="switchView('Account')">
                                 <strong>Mon compte</strong>
                             </a>
                             <a class="button is-light" v-on:click="logOff">
