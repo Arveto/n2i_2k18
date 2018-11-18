@@ -15,7 +15,7 @@ const mysql = require('mysql');
 //Custom modules
 const databaseWrapper = require('./db_wrapper.js');
 const accountsEvents = require('./accounts_events.js');
-const accountsEvents = require('./chat.js');
+const chat = require('./chat.js');
 
 
 /******************************************************************************/

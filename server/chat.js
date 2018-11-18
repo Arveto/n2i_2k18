@@ -19,7 +19,7 @@ function listen(socket, database){
             id = rows[0].id;
 
             query = 'INSERT INTO char (author, room, content) VALUES(?, ?, ?);';
-            return database.query(query; [id, data.roomNumber, data.message]);
+            return database.query(query, [id, data.roomNumber, data.message]);
         })
         .then(rows => {});
 
@@ -34,5 +34,5 @@ function listen(socket, database){
 }
 
     //Export func
-    
+
 module.exports = {listen};
