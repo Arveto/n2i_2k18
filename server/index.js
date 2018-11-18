@@ -15,6 +15,7 @@ const mysql = require('mysql');
 //Custom modules
 const databaseWrapper = require('./db_wrapper.js');
 const accountsEvents = require('./accounts_events.js');
+const accountsEvents = require('./chat.js');
 
 
 /******************************************************************************/
@@ -73,6 +74,7 @@ async function start() {
         console.log('id: ' + socket.id + ' is connected');
 
         accountsEvents.listen(socket, database);
+        chat.listen(socket, database);
 
         socket.on("message", (data)=>{
           console.log("message : " + data.content);
