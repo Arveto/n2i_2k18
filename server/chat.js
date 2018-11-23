@@ -1,7 +1,52 @@
     //Function to create events listeners
 function listen(socket, database){
 
+    socket.on('createRoom', (data) => {
+        let query = 'SELECT id FROM users WHERE email = ?;';
+
+        database.query(query, [data.userData.email])
+        .then(rows => {
+
+            query = 'INSERT INTO rooms (author, name) VALUES(?, ?);';
+            return database.query(query, [rows[0].id, data.roomName]);
+        })
+
+        .then(rows => {});
+
+    });
+
+
+    socket.on('roomsRequest', (data) => {
+        let query = 'SELECT fiName, faName, pseudo, id, name, date\
+        FROM `rooms`,`users` WHERE `user`.`id` = `rooms`.`author`';
+
+        database.query(query)
+        .then(rows => {
+            socket.emit('roomsRequest', rows)
+        });
+
+    });
+
+
     socket.on('joinRoom', (data) => {
+
+        let query = 'SELECT fiName, faName, pseudo, content, date\
+        FROM `messages`,`users`\
+        WHERE `user`.`id` = `messages`.`author` AND `messages`.`author` = ?\
+        LIMIT 50';
+
+        database.query(query, [data.id])
+        .then(rows => {
+
+                //Notice room that new user has joined
+            socket.join("chat"+data.roomNumber);
+            io.sockets.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
+
+                //Fetch messages to new user
+            io.sockets.emit('fetchMessages', rows);
+        });
+
+
         socket.join("chat"+data.roomNumber);
         io.sockets.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
     });
@@ -18,7 +63,7 @@ function listen(socket, database){
         .then(rows => {
             id = rows[0].id;
 
-            query = 'INSERT INTO char (author, room, content) VALUES(?, ?, ?);';
+            query = 'INSERT INTO messages (author, room, content) VALUES(?, ?, ?);';
             return database.query(query, [id, data.roomNumber, data.message]);
         })
         .then(rows => {});
