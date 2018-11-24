@@ -16,6 +16,7 @@ const mysql = require('mysql');
 const databaseWrapper = require('./db_wrapper.js');
 const accountsEvents = require('./accounts_events.js');
 const chat = require('./chat.js');
+const articles = require('./articles.js');
 
 
 /******************************************************************************/
@@ -75,6 +76,7 @@ async function start() {
 
         accountsEvents.listen(socket, database);
         chat.listen(socket, database);
+        articles.listen(socket, database);
 
         socket.on("message", (data)=>{
           console.log("message : " + data.content);

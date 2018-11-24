@@ -17,8 +17,8 @@ function listen(socket, database){
 
 
     socket.on('roomsRequest', (data) => {
-        let query = 'SELECT fiName, faName, pseudo, id, name, date\
-        FROM `rooms`,`users` WHERE `user`.`id` = `rooms`.`author`';
+        let query = 'SELECT fiName, faName, pseudo, rooms.id, name, date\
+        FROM `rooms`,`users` WHERE `users`.`id` = `rooms`.`author`';
 
         database.query(query)
         .then(rows => {
@@ -32,7 +32,7 @@ function listen(socket, database){
 
         let query = 'SELECT fiName, faName, pseudo, content, date\
         FROM `messages`,`users`\
-        WHERE `user`.`id` = `messages`.`author` AND `messages`.`author` = ?\
+        WHERE `users`.`id` = `messages`.`author` AND `messages`.`room` = ?\
         LIMIT 50';
 
         database.query(query, [data.id])

@@ -6,6 +6,9 @@
             <Signup v-show="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
             <Login v-show="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
             <Account v-show="view == 'Account'"  v-bind:socket="socket" v-bind:userData="userData"/>
+            <Articles v-show="view == 'Articles'"/>
+            <!-- <Messenger v-show="view == 'Messenger'"/> -->
+
         </div>
 
 </template>
@@ -22,6 +25,8 @@ import Header from '@/components/Header'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Account from '@/components/Account'
+import Articles from '@/components/articles/List'
+//import Messenger from '@/components/messenger/Messenger'
 
 
 var data = {
@@ -32,14 +37,15 @@ var data = {
         fiName: '',
         faName: '',
         pseudo: '',
-        email: ''
+        email: '',
+        admin: 0
     }
 };
 
 
 export default {
     components: {
-        Home, Header, Login, Signup, Account
+        Home, Header, Login, Signup, Account, Articles//, Messenger
     },
 
     data () {
@@ -48,6 +54,8 @@ export default {
     },
 
     mounted() {
+            //Update main user data on account edit
+
         socket.on('faNameEditSuccess', (data) => {
             this.userData.faName = data.faName;
         });
@@ -75,6 +83,7 @@ export default {
             this.loggedIn = true;
             this.userData = userData;
             this.view = 'Home';
+            console.log(this.userData.admin);
 
             console.log(this.userData);
         },

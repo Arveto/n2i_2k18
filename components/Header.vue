@@ -13,8 +13,12 @@
                     Home
                 </a>
 
-                <a class="navbar-item">
-                    Some stuff
+                <a class="navbar-item" v-on:click="switchView('Messenger')">
+                    Messenger
+                </a>
+
+                <a class="navbar-item" v-on:click="switchView('Articles')">
+                    Articles
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
