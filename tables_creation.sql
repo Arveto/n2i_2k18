@@ -30,6 +30,7 @@ CREATE TABLE `rooms` (
 CREATE TABLE `articles` (
 	`id` SMALLINT unsigned NOT NULL AUTO_INCREMENT,
 	`author` SMALLINT unsigned NOT NULL,
+    `title` varchar(100) NOT NULL,
 	`content` MEDIUMTEXT NOT NULL,
 	`date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)

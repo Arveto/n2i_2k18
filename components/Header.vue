@@ -2,16 +2,13 @@
 
     <nav class="navbar header" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://github.com/Arveto">
+            <div class="navbar-item" v-on:click="switchView('Home')">
                 <img src="~/static/header_logo.png" width="112" height="28">
-            </a>
+            </div>
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" v-on:click="switchView('Home')">
-                    Home
-                </a>
 
                 <a class="navbar-item" v-on:click="switchView('Messenger')">
                     Messenger
@@ -21,24 +18,21 @@
                     Articles
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
+
+                <div class="navbar-item has-dropdown is-hoverable" v-if="userData.admin">
                     <a class="navbar-link">
-                        More
+                        Administration
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Menu 1
+                        <a class="navbar-item" v-on:click="switchView('Writer')">
+                            Write article
                         </a>
                         <a class="navbar-item">
-                            Menu 2
+                            Manage chat room
                         </a>
                         <a class="navbar-item">
-                            Menu 3
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Report an issue
+                            Other?
                         </a>
                     </div>
                 </div>
@@ -99,6 +93,10 @@
     border-radius: 0px;
     background-color: rgb(31, 36, 36);
     /*background-color: rgb(45, 45, 45);*/
+}
+
+.navbar-brand {
+    cursor: pointer;
 }
 
 #welcomeText {

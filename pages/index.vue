@@ -6,7 +6,9 @@
             <Signup v-show="view == 'Signup'" v-bind:socket="socket" @signUp="signUp"/>
             <Login v-show="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
             <Account v-show="view == 'Account'"  v-bind:socket="socket" v-bind:userData="userData"/>
-            <Articles v-show="view == 'Articles'"/>
+            <Articles v-show="view == 'Articles'" v-bind:socket="socket" v-bind:articles="articles" @switchView="switchView"/>
+            <Writer v-show="view == 'Writer'" />
+            <Reader v-show="view == 'Reader'" v-bind:article="article"/>
             <!-- <Messenger v-show="view == 'Messenger'"/> -->
 
         </div>
@@ -26,6 +28,8 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Account from '@/components/Account'
 import Articles from '@/components/articles/List'
+import Writer from '@/components/articles/Writer'
+import Reader from '@/components/articles/Reader'
 //import Messenger from '@/components/messenger/Messenger'
 
 
@@ -39,13 +43,15 @@ var data = {
         pseudo: '',
         email: '',
         admin: 0
-    }
+    },
+    articles: [],
+    article: {}
 };
 
 
 export default {
     components: {
-        Home, Header, Login, Signup, Account, Articles//, Messenger
+        Home, Header, Login, Signup, Account, Articles, Writer, Reader//, Messenger
     },
 
     data () {
@@ -55,7 +61,6 @@ export default {
 
     mounted() {
             //Update main user data on account edit
-
         socket.on('faNameEditSuccess', (data) => {
             this.userData.faName = data.faName;
         });
@@ -70,6 +75,25 @@ export default {
         });
         socket.on('passwordEditSuccess', () => {
             console.log("Password updated !");
+        });
+
+
+            //Request articles
+        socket.emit('articlesRequest');
+
+        socket.on('articlesRequest', (data) =>{
+            this.articles = data;
+        });
+
+        socket.on('viewArticle', (data) =>{
+            for(let i=0; i< this.articles.length; i++){
+                if(this.articles[i].id == data.id){
+                    this.article = this.articles[i];
+                    this.article.content = data.content;
+                    console.log("Article found, updating");
+                    break;
+                }
+            }
         });
     },
 

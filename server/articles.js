@@ -18,9 +18,9 @@ function listen(socket, database){
     });
 
 
-    socket.on('articlesRequest', (data) => {
+    socket.on('articlesRequest', () => {
         let query = 'SELECT fiName, faName, pseudo, articles.id, title, date\
-        FROM `articles`,`users` WHERE `users`.`id` = `articles`.`author`';
+        FROM `articles`,`users` WHERE `users`.`id` = `articles`.`author` LIMIT 25;';
 
         database.query(query)
         .then(rows => {
@@ -31,11 +31,11 @@ function listen(socket, database){
 
 
     socket.on('viewArticle', (data) => {
-        let query = 'SELECT content FROM articles where id = ?;';
+        let query = 'SELECT content, id FROM articles where id = ?;';
 
         database.query(query, [data.id])
         .then(rows => {
-            socket.emit('viewArticle', rows);
+            socket.emit('viewArticle', rows[0]);
         });
 
     });
