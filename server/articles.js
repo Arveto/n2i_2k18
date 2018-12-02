@@ -8,9 +8,11 @@ function listen(socket, database){
         .then(rows => {
 
             if(rows[0].admin){
-                query = 'INSERT INTO rooms (author, title, content) VALUES(?, ?, ?);';
+                query = 'INSERT INTO articles (author, title, content) VALUES(?, ?, ?);';
                 database.query(query, [rows[0].id, data.title, data.content])
-                .then(rows => {});
+                .then(rows => {
+                    socket.emit('uploadArticle');
+                });
             }
 
         });

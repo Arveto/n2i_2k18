@@ -1,31 +1,101 @@
 <template lang="html">
 
-<textarea id="editor"></textarea>
+    <div class="hero-body">
+        <div class="container has-text-centered">
+
+            <h1 class="title is-1">Publish article [WIP]</h1>
+
+            <div class="fieldTitle">Title:</div>
+            <input type="text" id="title" class="text" v-model="title">
+            <br/>
+
+            <div class="fieldTitle">Content:</div>
+            <textarea id="content" class="text" v-model="content"></textarea>
+
+            <br />
+            <a class="button is-link" id="submit" v-on:click="submit">Submit</a>
+
+        </div>
+    </div>
 
 </template>
 
 
+
 <script>
 
-//BUG CSS seems unscoped
+let data = {
+        title : 'Your title',
+        content : 'Your article goes here'
+};
 
-//export default {
-//     head () {
-//         return {
-//             script: [
-//                 { src: 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js' }
-//             ],
-//             style: [
-//                 { src: 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'}
-//             ]
-//         }
-//     },
-//
-//
-//     mounted (){
-//         var simpleMde = new SimpleMDE({ element: document.getElementById("editor") });
-//     }
-//
-// }
+export default {
+
+    data(){
+        return data;
+    },
+
+    mounted() {
+        this.socket.on('uploadArticle', () => {
+            data.title = '';
+            data.content = '';
+        });
+    },
+
+    methods: {
+        submit: function(){
+
+            let data = {
+                userData: {}
+            };
+
+            data.userData.email = this.userData.email;
+            data.title = this.title;
+            data.content = this.content;
+
+            this.socket.emit('uploadArticle', data);
+
+            console.log(data);
+
+            console.log('ok')
+
+        }
+    },
+
+    props : ['userData', 'socket']
+
+}
 
 </script>
+
+
+
+<style>
+
+#title {
+    margin-bottom: 10px;
+}
+
+#content {
+    resize: none;
+    width: 60%;
+    height: 250px;
+}
+
+.text {
+    background: transparent;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: white;
+    outline: none;
+}
+
+.fieldTitle{
+    font-size: 22px;
+}
+
+#submit {
+    margin-top: 25px;
+}
+
+</style>

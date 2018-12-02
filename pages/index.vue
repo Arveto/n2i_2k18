@@ -7,7 +7,7 @@
             <Login v-show="view == 'Login'"  v-bind:socket="socket" @signIn="signIn"/>
             <Account v-show="view == 'Account'"  v-bind:socket="socket" v-bind:userData="userData"/>
             <Articles v-show="view == 'Articles'" v-bind:socket="socket" v-bind:articles="articles" @switchView="switchView"/>
-            <Writer v-show="view == 'Writer'" />
+            <Writer v-show="view == 'Writer'" v-bind:socket="socket" v-bind:userData="userData"/>
             <Reader v-show="view == 'Reader'" v-bind:article="article"/>
             <!-- <Messenger v-show="view == 'Messenger'"/> -->
 
