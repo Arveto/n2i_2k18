@@ -53,6 +53,8 @@ function listen(socket, database){
 
 
     socket.on('message', (data) => {
+      console.log("MESSAGE RECIVED");
+      console.log(data);
             //Send messages to other room members
         io.sockets.in("chat"+data.roomNumber).emit('message', data.message);
 

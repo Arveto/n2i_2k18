@@ -1,9 +1,13 @@
 <template lang="html">
+
   <div class="messengerView">
+    
     <div v-for="message in messages" :key="message.id">
       <Message :message="{id: message.id, sender: message.sender, content: message.content, time: message.time, isMine: message.isMine}"/>
     </div>
+    
   </div>
+
 </template>
 
 <script>

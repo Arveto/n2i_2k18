@@ -46,9 +46,15 @@ export default {
         Input
     },
 
+    props: {
+      socket: {
+        type: Object
+      }
+    },
+
     data: function() {
         return {
-            isOpen: true,
+            isOpen: false,
 
             messages: [
                 {id:1, sender:'p1', content:'yo la mif', time:'12', isMine: false},
@@ -60,12 +66,12 @@ export default {
     },
 
     mounted: function (){
-        socket.on("message", (data)=>{
+        this.socket.on("message", (data)=>{
             data.id = this.$data.messages.length++;
             data.isMine = false;
             this.$data.messages.push(data)
         })
-        socket.on("messageRecived", (data)=>{
+        this.socket.on("messageRecived", (data)=>{
             data.id = this.$data.messages.length+1;
             data.isMine = true;
             this.$data.messages.push(data)
@@ -77,7 +83,8 @@ export default {
             this.$data.isOpen = !this.$data.isOpen;
         },
         sendMessage: function(content) {
-            socket.emit("message", {"id": '', "sender": "test", "content": content, "time": 42, "isMine": ''});
+            this.socket.emit("message", {"id": '', "sender": "test", "content": content, "time": 42, "isMine": ''});
+            console.log('oiu');
         }
     }
 }

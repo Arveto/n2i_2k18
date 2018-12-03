@@ -10,6 +10,7 @@
             <Writer v-show="view == 'Writer'" v-bind:socket="socket" v-bind:userData="userData"/>
             <Reader v-show="view == 'Reader'" v-bind:article="article"/>
             <!-- <Messenger v-show="view == 'Messenger'"/> -->
+            <Messenger v-bind:socket="socket"/>
 
         </div>
 
@@ -30,7 +31,7 @@ import Account from '@/components/Account'
 import Articles from '@/components/articles/List'
 import Writer from '@/components/articles/Writer'
 import Reader from '@/components/articles/Reader'
-//import Messenger from '@/components/messenger/Messenger'
+import Messenger from '@/components/messenger/Messenger'
 
 
 var data = {
@@ -51,7 +52,7 @@ var data = {
 
 export default {
     components: {
-        Home, Header, Login, Signup, Account, Articles, Writer, Reader//, Messenger
+        Home, Header, Login, Signup, Account, Articles, Writer, Reader, Messenger
     },
 
     data () {
