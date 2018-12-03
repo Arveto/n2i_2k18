@@ -132,10 +132,7 @@ div{
     overflow-y: hidden;
     overflow-x: hidden;
 }
-#contacts{
-    border-left: solid 1px white;
-    flex-grow: 1;
-}
+
 #userInput{
     position: fixed;
     bottom: 22vh;

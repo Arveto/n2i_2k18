@@ -1,7 +1,9 @@
 
 <template lang="html">
   <div class="c_contact">
-    <div v-if="data.active" class="activity"></div>
+    <div class="activity">
+      <div v-show="data.active" class="greenPoint"></div>
+    </div>
     <span><b> {{ data.name }} </b></span>
   </div>
 </template>
@@ -20,14 +22,19 @@ export default {
 <style lang="css" scoped>
   .c_contact{
     height: 50px;
-    background-color: #4f4d4d;
+    border-radius: 2%;
+    border: solid 1px #3b8070;
   }
   .activity{
     display: inline-block;
-    margin: 0 5px 0 5px;
     height: 10px;
     width: 10px;
-    border-radius: 50%;
+  }
+  .greenPoint{
+    margin: 5px 5px 0 3px;
+    height: 10px;
+    width: 10px;
     background-color: green;
+    border-radius: 50%;
   }
 </style>
