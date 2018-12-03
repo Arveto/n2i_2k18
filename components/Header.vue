@@ -10,10 +10,6 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
 
-                <a class="navbar-item" v-on:click="switchView('Messenger')">
-                    Messenger
-                </a>
-
                 <a class="navbar-item" v-on:click="switchView('Articles')">
                     Articles
                 </a>
