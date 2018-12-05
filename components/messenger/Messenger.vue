@@ -70,12 +70,12 @@ export default {
             data.id = this.$data.messages.length++;
             data.isMine = false;
             this.$data.messages.push(data)
-        })
+        });
         this.socket.on("messageRecived", (data)=>{
             data.id = this.$data.messages.length+1;
             data.isMine = true;
             this.$data.messages.push(data)
-        })
+        });
     },
 
     methods: {

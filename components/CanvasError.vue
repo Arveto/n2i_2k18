@@ -4,7 +4,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.js" charset="utf-8"></script>
 
 
-    <!-- <img src="@/static/alberto1.png" v-show="false">
+    <img src="@/static/alberto1.png" v-show="false">
     <img src="@/static/alberto2.png" v-show="false">
     <img src="@/static/alberto3.png" v-show="false">
     <img src="@/static/alberto4.png" v-show="false">
@@ -13,7 +13,7 @@
     <img src="@/static/alberto7.png" v-show="false">
     <img src="@/static/alberto8.png" v-show="false">
     <img src="@/static/alberto9.png" v-show="false">
-    <img src="@/static/alberto-shiny.png" v-show="false"> -->
+    <img src="@/static/alberto-shiny.png" v-show="false">
 
     <h1><b> {{message.toUpperCase() }} </b></h1>
   </center>
