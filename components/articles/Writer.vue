@@ -1,6 +1,8 @@
 <template lang="html">
 
+
     <div class="hero-body">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Varela+Round">
         <div class="container has-text-centered">
 
             <h1 class="title is-1">Publish article [WIP]</h1>
@@ -13,6 +15,7 @@
             <textarea id="content" class="text" v-model="content"></textarea>
 
             <br />
+
             <a class="button is-link" id="submit" v-on:click="submit">Submit</a>
 
         </div>
@@ -43,6 +46,7 @@ export default {
     },
 
     methods: {
+
         submit: function(){
 
             let data = {
@@ -55,9 +59,6 @@ export default {
 
             this.socket.emit('uploadArticle', data);
 
-            console.log(data);
-
-            console.log('ok')
 
         }
     },
@@ -74,12 +75,22 @@ export default {
 
 #title {
     margin-bottom: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    font-family: 'Varela Round', serif;
+    font-size: 20px;
 }
 
 #content {
     resize: none;
     width: 60%;
     height: 250px;
+    background-color: white;
+    color: black;
+    border: none;
+    font-family: 'Varela Round', serif;
+    font-size: 20px;
 }
 
 .text {

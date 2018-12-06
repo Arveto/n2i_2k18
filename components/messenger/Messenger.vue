@@ -149,12 +149,3 @@ div{
 }
 
 </style>
-
-
-<style lang="css">
-
-div{
-    margin: 5px;
-}
-
-</style>

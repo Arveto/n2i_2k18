@@ -79,9 +79,7 @@ async function start() {
         articles.listen(socket, database);
 
         socket.on("message", (data)=>{
-          console.log("message : " + data.content);
-          socket.broadcast.emit("message", data);
-          socket.emit("messageRecived", data);
+
         })
     });
 
