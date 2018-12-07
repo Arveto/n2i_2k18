@@ -106,11 +106,11 @@ export default {
 
         var canvas = document.createElement('canvas');
         canvas.id = "myCanvas";
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth -100;
+        canvas.height = window.innerHeight - 200;
         canvas.style.zIndex = 8;
         canvas.style.position = 'absolute';
-        canvas.style.top = 0;
+        canvas.style.top = "10vh";
 
         var body = document.getElementsByTagName("body")[0];
         body.appendChild(canvas);
@@ -132,7 +132,7 @@ export default {
         var brickHeight = 20;
         var brickPadding = 10;
         var brickOffsetTop = 30;
-        var brickOffsetLeft = 30;
+        var brickOffsetLeft = canvas.width /2 - brickRowCount * 20;
         var score = 0;
         var lives = 3;
         var bricks = [];
