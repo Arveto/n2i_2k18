@@ -5,16 +5,21 @@
         <div v-if="isOpen" id="root">
             <div class="box" id="messenger">
                 <div id="messages">
+
                     <div id="header">
-                        <MessengerHeader/>
+                        <MessengerHeader v-bind:rooms="rooms" v-bind:currentRoomName="currentRoomName" v-bind:socket="socket" @joinRoom="joinRoom"/>
                     </div>
-                    <MessagesView :messages="messages"/>
+
+                    <MessagesView v-bind:messages="messages" v-bind:userData="userData"/>
+
                     <div id="userInput">
                         <Input @sendMessage="sendMessage"/>
                     </div>
+
                 </div>
             </div>
         </div>
+
         <div id="toggleMessenger" class="button" @click="toggleMessenger">
             <div v-if="isOpen">
                 <i class="fa fa-times"></i>
@@ -35,9 +40,6 @@ import MessagesView from './MessagesView.vue'
 import MessengerHeader from './MessengerHeader.vue'
 import Input from "./Input.vue"
 
-// import io from 'socket.io-client'
-// let socket = io.connect('localhost:3000'); //TODO Pass io instance as props
-
 export default {
     name: 'Messenger',
     components: {
@@ -46,35 +48,42 @@ export default {
         Input
     },
 
-    props: {
-      socket: {
-        type: Object
-      }
-    },
+    props: ['socket', 'userData'],
 
     data: function() {
         return {
             isOpen: false,
-
-            messages: [
-                {id:1, sender:'p1', content:'yo la mif', time:'12', isMine: false},
-                {id:2, sender:'p2', content:'wesh', time:'145', isMine: false},
-                {id:3, sender:'mwa', content:'plop', time:'645', isMine: true},
-                {id:4, sender:'p1', content:'caca', time:'46', isMine: false}
-            ]
+            messages: [],
+            rooms: [],
+            currentRoom: -1,
+            currentRoomName : ''
         }
+
     },
 
     mounted: function (){
-        this.socket.on("message", (data)=>{
-            data.id = this.$data.messages.length++;
-            data.isMine = false;
-            this.$data.messages.push(data)
+            //Request rooms
+        this.socket.emit('roomsRequest');
+
+        this.socket.on('roomsRequest', (data) => {
+            this.rooms = data;
         });
-        this.socket.on("messageRecived", (data)=>{
-            data.id = this.$data.messages.length+1;
-            data.isMine = true;
-            this.$data.messages.push(data)
+
+
+            //Receive messages
+        this.socket.on("fetchMessages", (data)=>{   //On room change
+            this.messages = data;
+        });
+
+        this.socket.on("message", (data)=>{  //On new message
+            if(data.userData.email != this.userData.email && data.roomNumber == this.currentRoom){  //WARNING Ugly af
+                console.log("Received message");
+                let message = data.userData;
+                message.content = data.message;
+                console.log(message);
+
+                this.messages.push(message);
+            }
         });
     },
 
@@ -83,8 +92,33 @@ export default {
             this.$data.isOpen = !this.$data.isOpen;
         },
         sendMessage: function(content) {
-            this.socket.emit("message", {"id": '', "sender": "test", "content": content, "time": 42, "isMine": ''});
-            console.log('oiu');
+
+            if(this.userData.email != '' && this.currentRoom >= 0){
+                //Send message to server
+                let data = {roomNumber: this.currentRoom, userData: this.userData, message: content};
+                this.socket.emit("message", data);
+
+                //Add message to front
+                let message = this.userData;
+                message.content = content;
+                message.id = -1;
+                this.messages.push(message);
+
+                console.log(data);
+            }
+        },
+        joinRoom: function(content){
+            console.log("Joining room")
+            this.messages = [];
+            this.currentRoom = content;
+
+            for(let i=0; i<this.rooms.length; i++){
+                if(this.rooms[i].id == content){
+                    this.currentRoomName = this.rooms[i].name;
+                    break;
+                }
+
+            }
         }
     }
 }

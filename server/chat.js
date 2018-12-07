@@ -40,23 +40,21 @@ function listen(socket, database){
 
                 //Notice room that new user has joined
             socket.join("chat"+data.roomNumber);
-            io.sockets.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
+            socket.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
 
                 //Fetch messages to new user
-            io.sockets.emit('fetchMessages', rows);
+            socket.emit('fetchMessages', rows);
         });
 
 
         socket.join("chat"+data.roomNumber);
-        io.sockets.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
+        socket.in("chat"+data.roomNumber).emit('joinRoom', data.userData);
     });
 
 
     socket.on('message', (data) => {
-      console.log("MESSAGE RECIVED");
-      console.log(data);
             //Send messages to other room members
-        io.sockets.in("chat"+data.roomNumber).emit('message', data.message);
+        socket.broadcast.emit('message', data);
 
         let id;
         let query = 'SELECT id FROM users WHERE email = ?;';
@@ -75,7 +73,7 @@ function listen(socket, database){
 
     socket.on('leaveRoom', (data) => {
         socket.leave("chat"+data.roomNumber);
-        io.sockets.in("chat"+data.roomNumber).emit('leaveRoom', data.userData);
+        socket.in("chat"+data.roomNumber).emit('leaveRoom', data.userData);
     });
 
 }

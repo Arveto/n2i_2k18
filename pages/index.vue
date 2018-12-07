@@ -9,8 +9,7 @@
             <Articles v-show="view == 'Articles'" v-bind:socket="socket" v-bind:articles="articles" @switchView="switchView"/>
             <Writer v-show="view == 'Writer'" v-bind:socket="socket" v-bind:userData="userData"/>
             <Reader v-show="view == 'Reader'" v-bind:article="article"/>
-            <!-- <Messenger v-show="view == 'Messenger'"/> -->
-            <Messenger v-bind:socket="socket"/>
+            <Messenger v-bind:socket="socket" v-bind:userData="userData"/>
 
         </div>
 
@@ -108,9 +107,6 @@ export default {
             this.loggedIn = true;
             this.userData = userData;
             this.view = 'Home';
-            console.log(this.userData.admin);
-
-            console.log(this.userData);
         },
 
         signUp : function(userData){

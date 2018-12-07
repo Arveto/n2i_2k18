@@ -16,12 +16,9 @@ export default {
 
     mounted(){
 
-        console.log(this.article.date);
-
         let dateTimeParts= this.article.date.split(/[- :]/);
         dateTimeParts[1]--;
 
-        console.log(dateTimeParts);
 
         let dateObject = new Date();
 

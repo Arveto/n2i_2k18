@@ -88,7 +88,6 @@
 .navbar {
     border-radius: 0px;
     background-color: rgb(31, 36, 36);
-    /*background-color: rgb(45, 45, 45);*/
 }
 
 .navbar-brand {
@@ -112,8 +111,6 @@ export default {
             this.$emit('switchView', component);
         },
         logOff : function () {
-            //this.loggedIn = false;
-
             this.$emit('logOff');
         }
     },

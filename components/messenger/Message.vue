@@ -1,7 +1,6 @@
 <template lang="html">
-  <div class="message" :class="message.isMine ? 'mine' : ''">
-    <b v-if="!message.isMine"> {{ message.sender }}</b>&nbsp;
-    <small> at {{ message.time }} </small>
+  <div class="message" :class="message.email == userData.email ? 'mine' : ''">
+    <b v-if="message.email != userData.email"> {{ message.fiName +' '+message.faName }}</b>
     <span>
       {{ message.content }}
     </span>
@@ -11,11 +10,7 @@
 <script>
 export default {
   name: 'Message',
-  props: {
-    message: {
-      type: Object
-    }
-  }
+  props: ['message', 'userData']
 }
 </script>
 

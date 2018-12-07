@@ -29,7 +29,6 @@ export default {
     components: {Item},
     methods: {
         viewArticle : function (id) {
-            console.log("Id:"+id);
 
             this.$emit('switchView', 'Reader');
 

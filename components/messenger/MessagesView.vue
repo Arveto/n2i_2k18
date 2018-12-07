@@ -3,7 +3,7 @@
   <div class="messengerView">
 
     <div v-for="message in messages" :key="message.id">
-      <Message :message="{id: message.id, sender: message.sender, content: message.content, time: message.time, isMine: message.isMine}"/>
+      <Message v-bind:message="message" v-bind:userData="userData"/>
     </div>
 
   </div>
@@ -15,14 +15,13 @@ import Message from "./Message.vue"
 
 export default {
   name: 'MessagesView',
+
   components: {
-    Message
+      Message
   },
-  props: {
-    messages: {
-      type: Array
-    }
-  },
+
+  props: ['messages', 'userData'],
+
   data: function() {
     return {
 
