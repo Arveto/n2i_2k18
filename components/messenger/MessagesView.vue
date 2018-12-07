@@ -1,8 +1,8 @@
 <template lang="html">
 
-  <div class="messengerView">
+  <div class="messengerView" id="messagesMabite">
 
-    <div v-for="message in messages" :key="message.id">
+    <div v-for="message in messages">
       <Message v-bind:message="message" v-bind:userData="userData"/>
     </div>
 

@@ -88,6 +88,9 @@ export default {
 
                 this.messages.push(message);
 
+                var objDiv = document.getElementById("messagesMabite");
+                objDiv.scrollTop = objDiv.scrollHeight;
+
                 if(message.content == '/rocket')
                     launchRocket();
             }
@@ -110,6 +113,9 @@ export default {
                 message.content = content;
                 message.id = -1;
                 this.messages.push(message);
+
+                var objDiv = document.getElementById("messagesMabite");
+                objDiv.scrollTop = objDiv.scrollHeight;
 
                 if(content == '/rocket')
                     this.launchRocket();
