@@ -1,6 +1,7 @@
 <template>
 
     <div id="MESSENGER">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Varela+Round">
 
         <div v-if="isOpen" id="root">
             <div class="box" id="messenger">
@@ -29,7 +30,7 @@
             </div>
         </div>
 
-        <img src="~/static/rocket.svg" id="rocket">
+        <img src="~/static/rocket.svg" id="rocket" class="shake-hard">
 
     </div>
 
@@ -129,7 +130,7 @@ export default {
         },
         launchRocket: function(){
             console.log("LAUUUUUUUNCH");
-            document.getElementById('rocket').style.display = 'default';
+            document.getElementById('rocket').style.display = 'inline';
             setTimeout(() => {
                 document.getElementById('rocket').style.display = 'none';
             }, 3000);

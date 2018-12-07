@@ -2,7 +2,7 @@
 
 
     <div class="hero-body">
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Varela+Round">
+        <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
         <div class="container has-text-centered">
 
             <h1 class="title is-1">Publish article [WIP]</h1>

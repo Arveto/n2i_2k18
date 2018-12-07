@@ -1,14 +1,7 @@
 <?xml version="1.0"?><svg id="all_fusee" viewBox="-100 -200 200 210" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<title>Fusée qui décole</title>
 	<style>
-		#all_fusee{
-			background: #01033A ;
-			background: dimgray ;
-		}
-		
-		
 		.f_corps, .f_pates {
-			fill:honeydew;
 			fill:#DAD2D2;
 			stroke:#DAD2D2;
 		}
@@ -22,37 +15,36 @@
 		}
 		
 		#gaz_s2{
-			fill: gainsboro;
-			animation: 3s gaz_s_anim infinite ;
+			fill: darkgrey;
+			animation: 3s gaz_s_anim ease-in infinite;
 		}
 		#gaz_s1{
-			fill: gainsboro;
-			animation: 3s gaz_s_anim ease-in infinite ;
+			fill: darkgrey;
+			animation: 3s gaz_s_anim linear infinite ;
 		}
 		@keyframes gaz_s_anim {
-			to, 10%	{fill-opacity:0;}
-			50%		{fill-opacity:0.2;}
-			from	{fill-opacity:0.5;}
-		}
-		
-		#gaz_p1{
-			stroke:none;
-			animation: 3s gaz_p1_anim ease-in infinite reverse ;
-		}
-		@keyframes gaz_p1_anim {
-			to, 10%	{fill:grey;}
-			50%		{fill:orangered;}
-			from	{fill:red;}
+			from,to, 15%{fill-opacity:0;}
+			99%			{fill-opacity:0.6;}
 		}
 		
 		#gaz_p2{
 			stroke:none;
-			animation: 3s gaz_p2_anim ease-in infinite reverse ;
+			animation: 3s gaz_p2_anim ease-in-out infinite ;
 		}
 		@keyframes gaz_p2_anim {
-			to, 20%	{fill:grey;}
-			50%		{fill:darkorange;}
-			from	{fill:yellow;}
+			from,to, 10%	{fill:rgba(21,26,26,0);}
+			50%				{fill:darkorange;}
+			99%				{fill:gold;}
+		}
+		
+		#gaz_p1{
+			stroke:none;
+			animation: 3s gaz_p1_anim ease infinite ;
+		}
+		@keyframes gaz_p1_anim {
+			from, 5%,to	{fill:rgba(31,36,36,0);}
+			50%			{fill:maroon;}
+			99%			{fill:orangered;}
 		}
 		
 	</style>
@@ -79,7 +71,7 @@
 		<path id="gaz_p2" d="M-7,-10  L-6,0  L-5,-2  L-4,5  L-3,7  L-2,5  L-1,8  L0,10  L1,15  L2,10  L3,12  L4,3  L5,5 L6,-7  L7,-10 z" />
 		<path id="gaz_p1" d="M-5,-10  L-4,-4  L-2,-6  L-1,-1  L1,0  L2,-2  L3,-8  L5,-10  z"/>
 		
-		<animateMotion dur="3s" repeatCount="indefinite" path="M0,0 v-30 l5,-20 v-50 l-7,-50 v-50 l10,-50 " />
+		<animateMotion dur="3s" repeatCount="indefinite" path="M0,0 v-30 l5,-20 v-50 l-7,-50 v-50 l10,-100 " />
 	</g>
 	
 </svg>
