@@ -19,6 +19,7 @@
             <a class="button is-link" id="submit" v-on:click="submit">Submit</a>
 
         </div>
+
     </div>
 
 </template>
@@ -26,6 +27,8 @@
 
 
 <script>
+
+
 
 let data = {
         title : 'Your title',

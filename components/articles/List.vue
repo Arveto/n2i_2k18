@@ -12,6 +12,8 @@
             <Item  v-bind:article="item" v-bind:socket="socket"/>
         </div>
     </ul>
+
+    <Help v-bind:tip="'Voici des articles publiés par les autorités compétentes pour vous tenir au courant des actualités.'"/>
 </div>
 
 </template>
@@ -20,13 +22,12 @@
 
 <script>
 
-//TODO Improve template
-
 import Item from '@/components/articles/Item'
+import Help from '@/components/Help'
 
 export default {
     props: ['socket', 'articles'],
-    components: {Item},
+    components: {Item, Help},
     methods: {
         viewArticle : function (id) {
 
