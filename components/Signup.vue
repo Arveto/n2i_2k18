@@ -68,6 +68,9 @@
                 </div>
             </div>
         </div>
+
+        <Help v-bind:tip="'Vous inscrire vous donnera accès à de nombreuses fonctionnalités supplémentaires'"/>
+    </div>
   </div>
 
 </template>
@@ -86,6 +89,7 @@ var data   = {
     password: ''   //Crypted version
 };
 
+import Help from '@/components/Help'
 
 export default {
 
@@ -102,6 +106,8 @@ export default {
     },
 
     props: ['socket'],
+
+    components: {Help},
 
 
     created(){

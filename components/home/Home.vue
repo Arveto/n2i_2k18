@@ -34,12 +34,13 @@
                     <i class="fas fa-campground fade-in"></i>
                 </span>
             </span>
-            <h3 class="title">Adapt</h3>
-            En compagnie d'Alberto, le premier poulpe a avoir effectué le tour du monde en solitaire (!), vous
-            trouverez dans ce site votre meilleur ami lorsque les vivres viennent à manquer, que les itempéries s'abattent
-            sur vous, et que le moral est au plus bas. Grâce à ses fonctionnalités révolutionnaires dans le monde de la survie,
-            vous aurez accès à une toute nouvelle manière de repousser les frontières de l'inconnu.
-
+            <h3 class="title" id="mabite">Adapt</h3>
+            En compagnie d'Alberto, le premier poulpe a avoir effectué le tour du monde
+            en solitaire (!), vous trouverez dans ce site votre meilleur ami lorsque les
+            vivres viennent à manquer, que les itempéries s'abattent sur vous, et que le moral
+            est au plus bas. Grâce à ses fonctionnalités révolutionnaires dans le monde de la
+            survie, vous aurez accès à une toute nouvelle manière de repousser les frontières
+            de l'inconnu.
         </div>
 
         <div class="column">
@@ -131,6 +132,10 @@ export default {
 .fas{
     font-size: 60px;
     transform: translate(-25%, 0);
+}
+
+#mabite{
+    margin-bottom: 24px;
 }
 
 </style>
