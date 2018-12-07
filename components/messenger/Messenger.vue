@@ -28,6 +28,9 @@
                 <i class="fa fa-comment"></i>
             </div>
         </div>
+
+        <img src="~/static/rocket.svg" id="rocket">
+
     </div>
 
 </template>
@@ -83,6 +86,9 @@ export default {
                 console.log(message);
 
                 this.messages.push(message);
+
+                if(message.content == '/rocket')
+                    launchRocket();
             }
         });
     },
@@ -104,7 +110,8 @@ export default {
                 message.id = -1;
                 this.messages.push(message);
 
-                console.log(data);
+                if(content == '/rocket')
+                    this.launchRocket();
             }
         },
         joinRoom: function(content){
@@ -119,6 +126,13 @@ export default {
                 }
 
             }
+        },
+        launchRocket: function(){
+            console.log("LAUUUUUUUNCH");
+            document.getElementById('rocket').style.display = 'default';
+            setTimeout(() => {
+                document.getElementById('rocket').style.display = 'none';
+            }, 3000);
         }
     }
 }
@@ -180,6 +194,14 @@ div{
     position: fixed;
     bottom: 5vw;
     right: 10vw;
+}
+
+#rocket {
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    display: none;
 }
 
 </style>

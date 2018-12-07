@@ -9,7 +9,7 @@
             <Articles v-show="view == 'Articles'" v-bind:socket="socket" v-bind:articles="articles" @switchView="switchView"/>
             <Writer v-show="view == 'Writer'" v-bind:socket="socket" v-bind:userData="userData"/>
             <Reader v-show="view == 'Reader'" v-bind:article="article"/>
-            <Messenger v-bind:socket="socket" v-bind:userData="userData"/>
+            <Messenger v-if="userData.email != ''" v-bind:socket="socket" v-bind:userData="userData"/>
 
         </div>
 
